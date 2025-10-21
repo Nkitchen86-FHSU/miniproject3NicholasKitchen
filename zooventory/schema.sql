@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS animal;
+DROP TABLE IF EXISTS food;
+
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
+CREATE TABLE animal (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    species TEXT NOT NULL,
+    age INTEGER NOT NULL CHECK (age >= 0),
+    last_fed DATETIME,
+    FOREIGN KEY (owner_id) REFERENCES user (id) ON DELETE CASCADE
+);
+
+CREATE TABLE food (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    amount REAL CHECK (amount >= 0),
+    measurement TEXT NOT NULL,
+    FOREIGN KEY (owner_id) REFERENCES user (id) ON DELETE CASCADE
+);
