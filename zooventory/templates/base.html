@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - Zooventory</title>
+</head>
+<body>
+    <nav>
+        <h1>Zooventory</h1>
+        <ul>
+            {% if g.user %}
+                <li><a href="{{ url_for('auth.logout') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Animals</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Food</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Calculator</a></li>
+                <li><span>{{ g.user['username'] }}</span></li>
+                <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+            {% else %}
+                <li><a href="{{ url_for('auth.register') }}">Register</a>
+                <li><a href="{{ url_for('auth.login') }}">Log In</a>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <section>
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+
+        {% block content %}{% endblock %}
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
