@@ -40,4 +40,7 @@ def create_app(test_config=None):
     from . import animal
     app.register_blueprint(animal.bp)
 
+    from . import food
+    app.register_blueprint(food.bp)
+
     return app
