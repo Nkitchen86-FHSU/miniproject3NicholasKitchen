@@ -54,7 +54,7 @@ def get_animal(id, check_owner=True):
     animal = get_db().execute(
         'SELECT a.id, name, species, age, last_fed, owner_id'
         ' FROM animal a JOIN user u ON a.owner_id = u.id'
-        ' WHERE id = ?',
+        ' WHERE a.id = ?',
         (id,)
     ).fetchone()
 
