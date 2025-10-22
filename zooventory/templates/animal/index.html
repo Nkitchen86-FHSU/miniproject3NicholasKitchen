@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Animals{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('animal.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for animal in animals %}
+        <header>
+            <div>
+                <h2>Name: {{ animal['name'] }}</h2>
+            </div>
+            {% if g.user['id'] == animal['owner_id'] %}
+                <a href="{{ url_for('animal.update', id=animal['id']) }}">Edit</a>
+            {% endif %}
+        </header>
+        <p>Species: {{ animal['species'] }}</p>
+        <p>Age: {{ animal['age'] }}</p>
+        <p>Last Time Fed: {{ animal['last_fed'] }}</p>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

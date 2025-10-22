@@ -37,4 +37,7 @@ def create_app(test_config=None):
     from . import dashboard
     app.register_blueprint(dashboard.bp)
 
+    from . import animal
+    app.register_blueprint(animal.bp)
+
     return app

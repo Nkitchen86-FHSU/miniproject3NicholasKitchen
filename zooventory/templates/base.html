@@ -12,6 +12,7 @@
         <ul class="navbar-nav ms-auto">
             {% if g.user %}
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard.dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('animal.index') }}">Animals</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
             {% else %}
                 <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a></li>
@@ -20,21 +21,23 @@
         </ul>
     </nav>
 
-    <section>
-        <header>
-            {% block header %}{% endblock %}
-        </header>
+    <main>
+        <section>
+            <header>
+                {% block header %}{% endblock %}
+            </header>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-warning text-center mt-3" data-category="{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-warning text-center mt-3" data-category="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-        {% block content %}{% endblock %}
-    </section>
+            {% block content %}{% endblock %}
+        </section>
+    </main>
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
