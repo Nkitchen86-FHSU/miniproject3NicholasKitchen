@@ -1,27 +1,39 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Animals{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('animal.create') }}">New</a>
-  {% endif %}
-{% endblock %}
+{% block title %}Animals{% endblock %}
 
 {% block content %}
-    {% for animal in animals %}
-        <header>
-            <div>
-                <h2>Name: {{ animal['name'] }}</h2>
-            </div>
-            {% if g.user['id'] == animal['owner_id'] %}
-                <a href="{{ url_for('animal.update', id=animal['id']) }}">Edit</a>
-            {% endif %}
-        </header>
-        <p>Species: {{ animal['species'] }}</p>
-        <p>Age: {{ animal['age'] }}</p>
-        <p>Last Time Fed: {{ animal['last_fed'] }}</p>
-        {% if not loop.last %}
-            <hr>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-dark fw-bold">Animals</h1>
+        {% if g.user %}
+        <a href="{{ url_for('animal.create') }}" class="btn btn-primary">+ Add New Animal</a>
         {% endif %}
-    {% endfor %}
+    </div>
+
+    {% if animals %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for a in animals %}
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header text-light" style="background-color: #1e7e34;">
+                        <h5 class="mb-0">{{ a['name'] }}</h5>
+                    </div>
+                    <div class="card-body" style="background-color: #f5f5dc;">
+                        <p><strong>Species:</strong> {{ a['species'] }}</p>
+                        <p><strong>Age:</strong> {{ a['age'] }}</p>
+                        <p><strong>Last Fed:</strong> {{ a['last_fed'] }}</p>
+
+                        {% if g.user['id'] == a['owner_id'] %}
+                        <a href="{{ url_for('animal.update', id=a['id']) }}" class="btn btn-outline-success btn-sm mt-2">Edit</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted mt-5">No animals found.</p>
+    {% endif %}
+</div>
 {% endblock %}

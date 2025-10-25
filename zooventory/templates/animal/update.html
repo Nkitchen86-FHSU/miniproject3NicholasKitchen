@@ -1,21 +1,33 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit "{{ animal['name'] }}"{% endblock %}</h1>
+  <h1 class="text-center text-primary mb-4">{% block title %}Edit "{{ animal['name'] }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-    <form method="post">
-        <label for="name">Name</label>
-        <input name="name" id="name" value="{{ request.form['name'] or animal['name'] }}" required>
-        <label for="species">Species</label>
-        <input name="species" id="species" value="{{ request.form['species'] or animal['species'] }}">
-        <label for="age">Age</label>
-        <input name="age" id="age" value="{{ request.form['age'] or animal['age'] }}">
-        <input type="submit" value="Save">
-    </form>
-    <hr>
-    <form action="{{ url_for('animal.delete', id=animal['id']) }}" method="post">
-        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-    </form>
+<div class="container mt-4">
+  <div class="card shadow-lg border-0 mb-4">
+    <div class="card-body">
+      <form method="post">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input name="name" id="name" class="form-control" value="{{ request.form['name'] or animal['name'] }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="species" class="form-label">Species</label>
+          <input name="species" id="species" class="form-control" value="{{ request.form['species'] or animal['species'] }}">
+        </div>
+        <div class="mb-3">
+          <label for="age" class="form-label">Age</label>
+          <input name="age" id="age" class="form-control" value="{{ request.form['age'] or animal['age'] }}">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <form action="{{ url_for('animal.delete', id=animal['id']) }}" method="post">
+    <button type="submit" class="btn btn-outline-danger w-100" onclick="return confirm('Are you sure?');">Delete</button>
+  </form>
+</div>
 {% endblock %}

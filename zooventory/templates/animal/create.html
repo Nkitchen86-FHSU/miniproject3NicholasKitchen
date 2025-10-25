@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Animal{% endblock %}</h1>
+  <h1 class="text-center text-success mb-4">{% block title %}New Animal{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-    <form method="post">
-        <label for="name">Name</label>
-        <input name="name" id="name" value="{{ request.form['name'] }}" required>
-        <label for="species">Species</label>
-        <input name="species" id="species" value="{{ request.form['species'] }}" required>
-        <label for="age">Age</label>
-        <input name="age" id="age" value="{{ request.form['age'] }}" required>
-        <input type="submit" value="Save">
-    </form>
+<div class="container mt-4">
+  <div class="card shadow-lg border-0">
+    <div class="card-body">
+      <form method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input name="name" id="name" class="form-control" value="{{ request.form['name'] }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="species" class="form-label">Species</label>
+          <input name="species" id="species" class="form-control" value="{{ request.form['species'] }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="age" class="form-label">Age</label>
+          <input name="age" id="age" class="form-control" value="{{ request.form['age'] }}" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Save</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

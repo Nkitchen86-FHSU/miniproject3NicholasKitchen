@@ -1,26 +1,37 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Food{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('food.create') }}">New</a>
-  {% endif %}
-{% endblock %}
+{% block title %}Food{% endblock %}
 
 {% block content %}
-    {% for food in food %}
-        <header>
-            <div>
-                <h2>Name: {{ food['name'] }}</h2>
-            </div>
-            {% if g.user['id'] == food['owner_id'] %}
-                <a href="{{ url_for('food.update', id=food['id']) }}">Edit</a>
-            {% endif %}
-        </header>
-        <p>Amount: {{ food['amount'] }}</p>
-        <p>Measurement: {{ food['measurement'] }}</p>
-        {% if not loop.last %}
-            <hr>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-dark fw-bold">Food Inventory</h1>
+        {% if g.user %}
+        <a href="{{ url_for('food.create') }}" class="btn btn-primary">+ Add New Food</a>
         {% endif %}
-    {% endfor %}
+    </div>
+
+    {% if food %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for f in food %}
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header text-light" style="background-color: #1e7e34;">
+                        <h5 class="mb-0">{{ f['name'] }}</h5>
+                    </div>
+                    <div class="card-body" style="background-color: #f5f5dc;">
+                        <p class="mb-2"><strong>Amount:</strong> {{ f['amount'] }} {{ f['measurement'] }}</p>
+
+                        {% if g.user['id'] == f['owner_id'] %}
+                        <a href="{{ url_for('food.update', id=f['id']) }}" class="btn btn-outline-success btn-sm mt-2">Edit</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted mt-5">No food items found.</p>
+    {% endif %}
+</div>
 {% endblock %}
