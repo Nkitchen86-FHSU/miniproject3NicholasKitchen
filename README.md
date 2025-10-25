@@ -24,16 +24,16 @@ pip install -r requirements.txt
  
 ### Installing
  
-Initialize the flask database:
+Initialize the Flask database:
 ```
-flask --app flaskr init-db
+flask --app zooventory init-db
 ```
  
 ### Executing program
 
 Run the following to start the server:
 ```
-flask --app flaskr run
+flask --app zooventory run
 ```
  
 ## Authors
