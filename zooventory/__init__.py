@@ -43,4 +43,7 @@ def create_app(test_config=None):
     from . import food
     app.register_blueprint(food.bp)
 
+    from . import calculator
+    app.register_blueprint(calculator.bp)
+
     return app

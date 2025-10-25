@@ -1,6 +1,8 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
+
+from datetime import datetime
 from werkzeug.exceptions import abort
 
 from zooventory.auth import login_required
@@ -43,7 +45,7 @@ def feed_animal():
 
         db.execute(
             'UPDATE animal SET last_fed = ? WHERE id = ? AND owner_id = ?',
-            (amount, animal_id, g.user['id'])
+            (datetime.now().strftime('%m-%d-%Y at %I:%M %p'), animal_id, g.user['id'])
         )
 
         db.execute(
@@ -61,7 +63,7 @@ def feed_animal():
     ).fetchall()
 
     food = get_db().execute(
-        'SELECT id, name, amount, measurement FROM animal WHERE owner_id = ?',
+        'SELECT id, name, amount, measurement FROM food WHERE owner_id = ?',
         (g.user['id'],)
     ).fetchall()
 
