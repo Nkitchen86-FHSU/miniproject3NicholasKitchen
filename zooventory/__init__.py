@@ -1,3 +1,7 @@
+# INF601 - Advanced Programming in Python
+# Nicholas Kitchen
+# Mini Project 3
+
 import os
 
 from flask import Flask, render_template
